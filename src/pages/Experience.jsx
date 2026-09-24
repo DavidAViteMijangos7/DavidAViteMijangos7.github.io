@@ -29,6 +29,7 @@ const experiences = [
     description:
       'Contributed to the team\'s 1st place victory in the Monterrey race and a 3rd place national overall finish in the Electratón championship (around 15+ teams). Gained hands-on experience in mechanical assembly, structural troubleshooting, and rapid repairs. Assisted the electrical and telemetry divisions by working with battery systems, safety switches, and electric motor integration.',
     tags: ['Electratón', 'Electric Vehicle', 'Battery Systems', 'Mechanical Assembly', 'Telemetry'],
+    media: media.electrum,
     highlights: [
       '🥇 1st place in the Monterrey Electratón race',
       '🥉 3rd place overall in the national Electratón championship',
@@ -60,6 +61,7 @@ const experiences = [
     description:
       'Completed comprehensive training in rocketry physics. Designed and simulated flight models using OpenRocket software, and manufactured physical low-altitude rockets using 3D printing and fiberglass composite materials.',
     tags: ['Rocketry Physics', 'OpenRocket', '3D Printing', 'Fiberglass Composites', 'Flight Simulation'],
+    media: media.rocketry,
     highlights: [
       'Comprehensive training in high-power rocketry physics and principles',
       'Flight model design and simulation using OpenRocket',
@@ -75,6 +77,7 @@ const experiences = [
     description:
       'Represented the university in state-level swimming competitions. Maintained a rigorous daily training schedule while balancing a highly demanding engineering academic workload, demonstrating exceptional discipline, resilience, and time management.',
     tags: ['Varsity Athletics', 'Swimming', 'Discipline', 'Time Management', 'State Competition'],
+    media: media.swimming,
     highlights: [
       'Represented Tec de Monterrey in state-level swimming competitions',
       'Rigorous daily training schedule alongside demanding engineering coursework',

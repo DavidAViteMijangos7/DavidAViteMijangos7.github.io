@@ -27,7 +27,22 @@ export const media = {
   printing3d: [
     { src: '/images/3d-printing/printer-setup.jpg', alt: 'Personal 3D printing setup' },
   ],
+  electrum: [
+    { src: '/images/electrum/electrum-1-car-garage.jpg', alt: 'Escudería Electrum car #50 in the workshop' },
+    { src: '/images/electrum/electrum-2-race-finish.jpg', alt: 'Car #50 taking the checkered flag' },
+    { src: '/images/electrum/electrum-3-awards.jpg', alt: 'Electratón awards — 3rd place national and Monterrey race' },
+  ],
+  rocketry: [
+    { src: '/images/rocketry/rocketry-1-rocket-field.jpg', alt: 'Low-altitude rocket ready for launch' },
+    { src: '/images/rocketry/rocketry-2-hangar.jpg', alt: 'Aerospace hangar visit during the rocketry program' },
+  ],
+  swimming: [
+    { src: '/images/swimming/swimming-1-butterfly.jpg', alt: 'Butterfly at a varsity competition' },
+    { src: '/images/swimming/swimming-2-competition-pool.jpg', alt: 'Competition pool — varsity meet' },
+  ],
   active: [
+    { src: '/images/triathlon/triathlon-1-bike.jpg', alt: 'Triathlon — bike leg' },
+    { src: '/images/triathlon/triathlon-2-run.jpg', alt: 'Triathlon — run leg' },
     { src: '/images/active/active-1-bouldering.jpg', alt: 'Bouldering session' },
   ],
   hobbies: [],
