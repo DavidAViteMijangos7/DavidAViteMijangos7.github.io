@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { CircuitBoard, Zap, Wrench, Award, Rocket, Dumbbell, Microscope, ChevronDown, Activity, Music, Globe, ChevronRight, X } from 'lucide-react';
+import { CircuitBoard, Zap, Wrench, Rocket, Dumbbell, Microscope, ChevronDown, Activity, Music, Globe, ChevronRight } from 'lucide-react';
+import MediaGallery from '../components/MediaGallery';
+import { media } from '../data/media';
 
 const experiences = [
   {
@@ -11,6 +13,7 @@ const experiences = [
     description:
       'Collaborated with PhD researchers to analyze the mechanical properties of 3D-printed composites (Nylon and Onyx). Conducted structural evaluations using fatigue testing machines, 3D scanners, and tensile tests. Developed custom Python scripts for the automated control, tracking, and data management of test probes.',
     tags: ['Python', 'Mechanical Properties', 'Fatigue Testing', 'Tensile Testing', '3D Scanning'],
+    media: media.materials,
     highlights: [
       'Collaborated with PhD researchers to analyze mechanical properties of Nylon and Onyx 3D-printed composites',
       'Conducted structural evaluations using fatigue testing machines, 3D scanners, and tensile tests',
@@ -65,7 +68,7 @@ const experiences = [
   },
   {
     id: 'swimming',
-    period: '2023 — Present',
+    period: 'Aug 2024 — Dec 2025',
     title: 'Varsity Swimming Team',
     subtitle: 'High-Performance Student Athlete — Tec de Monterrey, Querétaro Campus',
     icon: Dumbbell,
@@ -85,21 +88,42 @@ const experiences = [
     subtitle: 'Blacksmith, Automator & Coach',
     icon: Wrench,
     description:
-      'A diverse background combining hands-on technical skills in blacksmithing and automation applied to family businesses, with leadership and communication experience as a swimming coach and member of Tec de Monterrey\'s competitive swim team.',
+      'A diverse background combining hands-on technical skills in blacksmithing and automation applied to family businesses, with leadership and communication experience as a swimming coach and former member of Tec de Monterrey\'s competitive swim team.',
     tags: ['Blacksmithing', 'Automation', 'Leadership', 'Communication', 'Swimming'],
     highlights: [
       'Process automation in family businesses',
       'Blacksmithing: welding, cutting, and manufacturing',
       'Swimming coach — training new athletes',
-      'Tec de Monterrey competitive swimming team member',
+      'Former Tec de Monterrey competitive swimming team member (Querétaro Campus)',
     ],
+  },
+];
+
+// Beyond Engineering cards — photos come from media.js; an empty array hides the grid.
+const beyond = [
+  {
+    title: 'Active Life',
+    icon: Activity,
+    text: 'Dedicated to high-performance fitness and endurance. My routine transitions from a strong background in competitive swimming into current triathlon training (swimming, cycling, running), weightlifting at the gym, bouldering, and active preparation for HYROX fitness racing.',
+    items: media.active,
+  },
+  {
+    title: 'Hobbies',
+    icon: Music,
+    text: 'Finding balance away from screens, CAD, and code through creative and mindful activities. My main downtime pursuits include reading, building LEGO sets, and playing the guitar.',
+    items: media.hobbies,
+  },
+  {
+    title: 'Culture',
+    icon: Globe,
+    text: 'Building a global perspective through travel, community volunteering, and ongoing German language studies. A key formative experience was completing a 2-year high school exchange program in the United States, which deeply shaped my adaptability and cross-cultural communication.',
+    items: media.culture,
   },
 ];
 
 
 export default function Experience() {
   const [beyondOpen, setBeyondOpen] = useState(false);
-  const [modalItem, setModalItem] = useState(null); // { src, alt }
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -149,6 +173,8 @@ export default function Experience() {
                   </div>
 
                   <p className="text-sm text-stone-600 leading-relaxed mb-4">{exp.description}</p>
+
+                  {exp.media && <MediaGallery items={exp.media} limit={3} aspect="4/3" className="mb-4" />}
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -225,120 +251,38 @@ export default function Experience() {
             </div>
           </button>
 
-          {/* Expandable body */}
+          {/* Expandable body — grid-rows 0fr→1fr animates to the real content height, so nothing clips */}
           <div
-            className={`overflow-hidden transition-all duration-500 ease-out ${
-              beyondOpen ? 'max-h-[900px] opacity-100' : 'max-h-0 opacity-0'
+            className={`grid transition-all duration-500 ease-out ${
+              beyondOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
             }`}
           >
-            <div className="border-t border-violet-100 px-6 pb-7 pt-6">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-
-                {/* Active Life */}
-                <div className="rounded-xl bg-violet-50 border border-violet-100 p-5 flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <Activity size={18} className="text-violet-600" />
-                    <span className="text-sm font-bold text-violet-800 uppercase tracking-wide">Active Life</span>
-                  </div>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    Dedicated to high-performance fitness and endurance. My routine transitions from a strong background in competitive swimming into current triathlon training (swimming, cycling, running), weightlifting at the gym, and active preparation for HYROX fitness racing.
-                  </p>
-                  {/* Photo grid */}
-                  <div className="grid grid-cols-2 gap-2 mt-1">
-                    {['/images/active-1.jpg', '/images/active-2.jpg', '/images/active-3.jpg'].map((src, j) => (
-                      <img
-                        key={j}
-                        src={src}
-                        alt={`Active Life photo ${j + 1}`}
-                        onClick={() => setModalItem({ src, alt: `Active Life — photo ${j + 1}` })}
-                        className="w-full aspect-square object-cover rounded-md shadow-sm border border-violet-100 bg-violet-100 hover:opacity-80 hover:shadow-md transition-all duration-200 cursor-pointer"
-                      />
-                    ))}
-                  </div>
+            <div className="overflow-hidden">
+              <div className="border-t border-violet-100 px-6 pb-7 pt-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {beyond.map((section) => {
+                    const Icon = section.icon;
+                    return (
+                      <div
+                        key={section.title}
+                        className="rounded-xl bg-violet-50 border border-violet-100 p-5 flex flex-col gap-3"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Icon size={18} className="text-violet-600" />
+                          <span className="text-sm font-bold text-violet-800 uppercase tracking-wide">{section.title}</span>
+                        </div>
+                        <p className="text-sm text-stone-600 leading-relaxed">{section.text}</p>
+                        {/* Renders nothing while the manifest array is empty */}
+                        <MediaGallery items={section.items} columns={2} className="mt-1" />
+                      </div>
+                    );
+                  })}
                 </div>
-
-                {/* Hobbies */}
-                <div className="rounded-xl bg-violet-50 border border-violet-100 p-5 flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <Music size={18} className="text-violet-600" />
-                    <span className="text-sm font-bold text-violet-800 uppercase tracking-wide">Hobbies</span>
-                  </div>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    Finding balance away from screens, CAD, and code through creative and mindful activities. My main downtime pursuits include reading, building LEGO sets, and playing the guitar.
-                  </p>
-                  {/* Photo grid */}
-                  <div className="grid grid-cols-2 gap-2 mt-1">
-                    {['/images/hobby-1.jpg', '/images/hobby-2.jpg', '/images/hobby-3.jpg'].map((src, j) => (
-                      <img
-                        key={j}
-                        src={src}
-                        alt={`Hobby photo ${j + 1}`}
-                        onClick={() => setModalItem({ src, alt: `Hobbies — photo ${j + 1}` })}
-                        className="w-full aspect-square object-cover rounded-md shadow-sm border border-violet-100 bg-violet-100 hover:opacity-80 hover:shadow-md transition-all duration-200 cursor-pointer"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Culture */}
-                <div className="rounded-xl bg-violet-50 border border-violet-100 p-5 flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <Globe size={18} className="text-violet-600" />
-                    <span className="text-sm font-bold text-violet-800 uppercase tracking-wide">Culture</span>
-                  </div>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    Building a global perspective through travel, community volunteering, and ongoing German language studies. A key formative experience was completing a 2-year high school exchange program in the United States, which deeply shaped my adaptability and cross-cultural communication.
-                  </p>
-                  {/* Photo grid */}
-                  <div className="grid grid-cols-2 gap-2 mt-1">
-                    {['/images/culture-1.jpg', '/images/culture-2.jpg', '/images/culture-3.jpg'].map((src, j) => (
-                      <img
-                        key={j}
-                        src={src}
-                        alt={`Culture photo ${j + 1}`}
-                        onClick={() => setModalItem({ src, alt: `Culture — photo ${j + 1}` })}
-                        className="w-full aspect-square object-cover rounded-md shadow-sm border border-violet-100 bg-violet-100 hover:opacity-80 hover:shadow-md transition-all duration-200 cursor-pointer"
-                      />
-                    ))}
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Full-size image modal */}
-      {modalItem && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-          onClick={() => setModalItem(null)}
-        >
-          <div
-            className="relative max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setModalItem(null)}
-              aria-label="Close modal"
-              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-stone-100 border border-stone-200 text-stone-500 hover:text-violet-700 hover:border-violet-300 hover:bg-violet-50 transition-all duration-200 shadow-sm"
-            >
-              <X size={18} />
-            </button>
-            <div className="px-6 pt-5 pb-3">
-              <p className="text-sm text-gray-700 font-medium">{modalItem.alt}</p>
-            </div>
-            <div className="px-6 pb-6">
-              <img
-                src={modalItem.src}
-                alt={modalItem.alt}
-                className="w-full max-h-[75vh] object-contain rounded-lg border border-stone-200 shadow-sm bg-violet-50"
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
