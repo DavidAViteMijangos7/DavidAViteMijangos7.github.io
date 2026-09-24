@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, X, Github, Image, FileCode } from 'lucide-react';
+import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image } from 'lucide-react';
+import Lightbox from '../components/Lightbox';
+import { media } from '../data/media';
 
 const categories = [
   {
@@ -11,21 +13,15 @@ const categories = [
         name: 'Python',
         level: 2,
         appliedIn: ['Neuron AV', 'Materials Science Research — Next Gen Scientist Program'],
-        evidence: [
-          { label: 'GitHub Repo', type: 'url', payload: 'https://github.com/placeholder', icon: Github },
-        ],
       },
       {
         name: 'C++',
         level: 3,
         appliedIn: ['Arduino-Controlled Robotic Goalkeeper', 'Autonomous Precision'],
-        evidence: [
-          { label: 'GitHub Repo', type: 'url', payload: 'https://github.com/placeholder', icon: Github },
-        ],
         certifications: [
           {
             name: 'C for Everyone: Programming Fundamentals (UC Santa Cruz / Coursera)',
-            imagePath: '/certificates/c-programming.jpg',
+            imagePath: '/certificates/c-programming.png',
           },
         ],
       },
@@ -33,9 +29,6 @@ const categories = [
         name: 'ROS 2',
         level: 1,
         appliedIn: ['Neuron AV'],
-        evidence: [
-          { label: 'GitHub Repo', type: 'url', payload: 'https://github.com/placeholder', icon: Github },
-        ],
       },
       {
         name: 'R / Data Science',
@@ -43,7 +36,7 @@ const categories = [
         certifications: [
           {
             name: 'Introducción a Data Science: Programación Estadística con R (UNAM / Coursera)',
-            imagePath: '/certificates/r-data.jpg',
+            imagePath: '/certificates/r-data.png',
           },
         ],
       },
@@ -61,7 +54,6 @@ const categories = [
         certifications: [
           {
             name: 'MATLAB Programming Series: Functions, Constructs & Data (MathWorks)',
-            imagePath: '/certificates/matlab.jpg',
           },
         ],
       },
@@ -82,13 +74,16 @@ const categories = [
         level: 3,
         appliedIn: ['Passive Industrial Exoskeleton Prototype'],
         evidence: [
-          { label: 'View FEA Stress Maps', type: 'modal', payload: '/images/placeholder.jpg', icon: Image },
+          { label: 'View FEA Stress Maps', items: media.exoskeleton.filter((m) => m.src.includes('-fea-')), icon: Image },
         ],
         certifications: [
           {
             name: 'CSWA - SOLIDWORKS Design Associate (Dassault Systèmes)',
-            note: '(CSWP Certification in progress)',
-            imagePath: '/certificates/cswa.jpg',
+            note: 'Exam score 240/240 · (CSWP Certification in progress)',
+            images: [
+              { src: '/certificates/cswa.jpg', alt: 'CSWA - SOLIDWORKS Design Associate certificate' },
+              { src: media.certificates.cswaExam, alt: 'CSWA exam result — 240/240' },
+            ],
           },
         ],
       },
@@ -96,24 +91,18 @@ const categories = [
         name: 'Fusion 360',
         level: 3,
         appliedIn: ['CubeSat Project'],
-        evidence: [
-          { label: 'View Assembly Renders', type: 'modal', payload: '/images/placeholder.jpg', icon: Image },
-        ],
       },
       {
         name: 'KiCad',
         level: 2,
         appliedIn: ['Formula SAE'],
-        evidence: [
-          { label: 'View Board Layout', type: 'modal', payload: '/images/placeholder.jpg', icon: FileCode },
-        ],
       },
       {
         name: '3D Printing',
         level: 2,
         appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper'],
         evidence: [
-          { label: 'View Physical Prototypes & Hardware', type: 'modal', payload: '/images/placeholder.jpg', icon: Image },
+          { label: 'View Physical Prototypes & Hardware', items: media.printing3d, icon: Image },
         ],
       },
       { name: 'Composite 3D Printing (Onyx/Nylon)', level: 3, appliedIn: ['Materials Science Research — Next Gen Scientist Program'] },
@@ -121,9 +110,6 @@ const categories = [
         name: 'MDF Fabrication & Prototyping',
         level: 2,
         appliedIn: ['Arduino-Controlled Robotic Goalkeeper'],
-        evidence: [
-          { label: 'View Physical Prototypes & Hardware', type: 'modal', payload: '/images/placeholder.jpg', icon: Image },
-        ],
       },
       { name: 'Fiberglass Composites', level: 2, appliedIn: ['Experimental Rocketry Courses'] },
     ],
@@ -161,10 +147,13 @@ const categories = [
   },
 ];
 
+// A cert shows either its own image list or its single imagePath.
+const certItems = (cert) => cert.images ?? (cert.imagePath ? [{ src: cert.imagePath, alt: cert.name }] : []);
+
 export default function Skills() {
   const [openCategory, setOpenCategory] = useState(null);
   const [openSkill, setOpenSkill] = useState(null);
-  const [modalItem, setModalItem] = useState(null); // { payload, label } — shared by certs + evidence
+  const [viewer, setViewer] = useState(null); // { items, index } — shared by certs + evidence
 
   const toggleCategory = (id) => {
     setOpenCategory(openCategory === id ? null : id);
@@ -230,11 +219,13 @@ export default function Skills() {
               </button>
 
               {/* Expandable skill grid */}
+              {/* grid-rows 0fr→1fr animates to the real content height, so nothing clips */}
               <div
-                className={`overflow-hidden transition-all duration-500 ease-out ${
-                  isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+                className={`grid transition-all duration-500 ease-out ${
+                  isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                 }`}
               >
+                <div className="overflow-hidden">
                 <div className="px-5 sm:px-6 pb-6 pt-1 border-t border-violet-100">
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-6">
                     {cat.skills.map((skill) => {
@@ -265,10 +256,11 @@ export default function Skills() {
 
                           {/* Expanded skill details */}
                           <div
-                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                              isSkillOpen ? 'mt-4 max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                            className={`grid transition-all duration-300 ease-in-out ${
+                              isSkillOpen ? 'mt-4 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                             }`}
                           >
+                            <div className="overflow-hidden">
                             <div className="space-y-4 pt-3 border-t border-violet-100">
 
                               {/* Level bar */}
@@ -317,27 +309,12 @@ export default function Skills() {
                                   <div className="flex flex-wrap gap-1.5">
                                     {skill.evidence.map((ev, j) => {
                                       const EvidenceIcon = ev.icon;
-                                      if (ev.type === 'url') {
-                                        return (
-                                          <a
-                                            key={j}
-                                            href={ev.payload}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={(e) => e.stopPropagation()}
-                                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium border border-violet-200 text-violet-700 hover:bg-violet-50 transition-colors duration-200"
-                                          >
-                                            <EvidenceIcon size={11} />
-                                            {ev.label}
-                                          </a>
-                                        );
-                                      }
                                       return (
                                         <button
                                           key={j}
                                           onClick={(e) => {
                                             e.stopPropagation();
-                                            setModalItem({ payload: ev.payload, label: ev.label });
+                                            setViewer({ items: ev.items, index: 0 });
                                           }}
                                           className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium border border-violet-200 text-violet-700 hover:bg-violet-50 transition-colors duration-200"
                                         >
@@ -355,46 +332,51 @@ export default function Skills() {
                                 <div className="space-y-2">
                                   <span className="text-xs font-medium text-stone-500 block">Verified Credentials:</span>
                                   <div className="space-y-1.5">
-                                    {skill.certifications.map((cert, j) => (
-                                      <div
-                                        key={j}
-                                        onClick={(e) => {
-                                          if (cert.imagePath) {
-                                            e.stopPropagation();
-                                            setModalItem({ payload: cert.imagePath, label: cert.name });
-                                          }
-                                        }}
-                                        className={`flex items-start gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium border bg-stone-50 border-stone-200 ${
-                                          cert.imagePath
-                                            ? 'cursor-pointer hover:border-violet-300 hover:bg-violet-50 transition-colors duration-200'
-                                            : ''
-                                        }`}
-                                      >
-                                        <Award size={14} className="flex-shrink-0 mt-0.5 text-violet-500" />
-                                        <div className="flex flex-col flex-1">
-                                          <span className="text-gray-700 leading-snug">{cert.name}</span>
-                                          {cert.note && (
-                                            <span className="text-[10px] text-stone-400 font-normal italic mt-0.5">
-                                              {cert.note}
-                                            </span>
-                                          )}
-                                          {cert.imagePath && (
-                                            <span className="text-[10px] text-violet-500 font-normal mt-1">
-                                              Click to view certificate ↗
-                                            </span>
-                                          )}
+                                    {skill.certifications.map((cert, j) => {
+                                      const items = certItems(cert);
+                                      return (
+                                        <div
+                                          key={j}
+                                          onClick={(e) => {
+                                            if (items.length) {
+                                              e.stopPropagation();
+                                              setViewer({ items, index: 0 });
+                                            }
+                                          }}
+                                          className={`flex items-start gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium border bg-stone-50 border-stone-200 ${
+                                            items.length
+                                              ? 'cursor-pointer hover:border-violet-300 hover:bg-violet-50 transition-colors duration-200'
+                                              : ''
+                                          }`}
+                                        >
+                                          <Award size={14} className="flex-shrink-0 mt-0.5 text-violet-500" />
+                                          <div className="flex flex-col flex-1">
+                                            <span className="text-gray-700 leading-snug">{cert.name}</span>
+                                            {cert.note && (
+                                              <span className="text-[10px] text-stone-400 font-normal italic mt-0.5">
+                                                {cert.note}
+                                              </span>
+                                            )}
+                                            {items.length > 0 && (
+                                              <span className="text-[10px] text-violet-500 font-normal mt-1">
+                                                Click to view certificate{items.length > 1 ? `s (${items.length})` : ''} ↗
+                                              </span>
+                                            )}
+                                          </div>
                                         </div>
-                                      </div>
-                                    ))}
+                                      );
+                                    })}
                                   </div>
                                 </div>
                               )}
+                            </div>
                             </div>
                           </div>
                         </div>
                       );
                     })}
                   </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -411,42 +393,18 @@ export default function Skills() {
             <p className="text-sm text-stone-500 leading-relaxed">
               Skills are grouped into five domains. Click on any category to expand it,
               then click on individual skill cards to see proficiency levels, applied projects,
-              evidence links (GitHub repos or visual renders), and verified credentials.
+              evidence (photos and renders), and verified credentials.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Shared Image Modal — used by both certificates and evidence */}
-      {modalItem && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-          onClick={() => setModalItem(null)}
-        >
-          <div
-            className="relative max-w-3xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setModalItem(null)}
-              aria-label="Close modal"
-              className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-stone-100 border border-stone-200 text-stone-500 hover:text-violet-700 hover:border-violet-300 hover:bg-violet-50 transition-all duration-200 shadow-sm"
-            >
-              <X size={18} />
-            </button>
-            <div className="px-6 pt-5 pb-3">
-              <p className="text-sm text-gray-700 font-medium">{modalItem.label}</p>
-            </div>
-            <div className="px-6 pb-6">
-              <img
-                src={modalItem.payload}
-                alt={modalItem.label}
-                className="w-full max-h-[75vh] object-contain rounded-lg border border-stone-200 shadow-sm"
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      <Lightbox
+        items={viewer?.items ?? []}
+        index={viewer?.index ?? null}
+        onClose={() => setViewer(null)}
+        onIndexChange={(index) => setViewer((v) => ({ ...v, index }))}
+      />
     </div>
   );
 }
