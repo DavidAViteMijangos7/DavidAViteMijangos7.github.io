@@ -1,5 +1,8 @@
-import { Download, GraduationCap, Waves, Globe, ChevronRight, Rocket, Bot, Satellite, Cpu, Mail, Linkedin } from 'lucide-react';
+import { Download, GraduationCap, Waves, Globe, ChevronRight, Rocket, Bot, Satellite, Cpu, Mail, Linkedin, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+// Set to '/cv_david_vite.pdf' once that file exists in public/ — the button stays hidden until then.
+const CV_URL = null;
 
 export default function Home() {
   return (
@@ -28,26 +31,32 @@ export default function Home() {
             </p>
 
             <p className="text-base text-stone-600 leading-relaxed max-w-xl fade-in-up stagger-3">
-              I am a 20-year-old Mechatronics Engineering student at{' '}
+              I am a Mechatronics Engineering student at{' '}
               <span className="text-gray-900 font-medium">Tecnológico de Monterrey</span>{' '}
-              (Monterrey Campus). I am passionate about robotics, autonomous vehicles, and aerospace technology.
-              I balance my career with diferent activities, such as research, external engineering proyects 
-              and my personal life. Most proud of my creativity and curiosity to really try and learn everything about my proyects.
+              (Monterrey Campus), passionate about robotics, autonomous vehicles, and aerospace technology.
+              I balance my studies with research, external engineering projects, and my personal life. What I'm
+              most proud of is my creativity and the curiosity that drives me to learn everything about my projects.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 pt-2 fade-in-up stagger-4">
-              <a
-                href="/cv_david_vite.pdf"
-                download
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold text-sm shadow-md hover:bg-violet-700 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 pulse-ring"
-              >
-                <Download size={18} className="group-hover:animate-bounce" />
-                Download CV
-              </a>
+              {CV_URL && (
+                <a
+                  href={CV_URL}
+                  download
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-violet-600 text-white font-semibold text-sm shadow-md hover:bg-violet-700 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 pulse-ring"
+                >
+                  <Download size={18} className="group-hover:animate-bounce" />
+                  Download CV
+                </a>
+              )}
               <Link
                 to="/projects"
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-stone-300 text-stone-700 font-semibold text-sm hover:bg-violet-50 hover:border-violet-300 hover:text-violet-700 transition-all duration-300 shadow-sm"
+                className={`group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
+                  CV_URL
+                    ? 'bg-white border border-stone-300 text-stone-700 hover:bg-violet-50 hover:border-violet-300 hover:text-violet-700 shadow-sm'
+                    : 'bg-violet-600 text-white shadow-md hover:bg-violet-700 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] pulse-ring'
+                }`}
               >
                 View Projects
                 <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -77,6 +86,18 @@ export default function Home() {
                   <Linkedin size={18} />
                 </span>
                 <span className="text-sm font-medium hidden sm:inline">LinkedIn</span>
+              </a>
+              <a
+                href="https://github.com/DavidAViteMijangos7"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Profile"
+                className="group flex items-center gap-2 text-stone-500 hover:text-violet-600 transition-colors duration-300"
+              >
+                <span className="p-2 rounded-lg bg-stone-100 border border-stone-200 group-hover:border-violet-300 group-hover:bg-violet-50 transition-all duration-300">
+                  <Github size={18} />
+                </span>
+                <span className="text-sm font-medium hidden sm:inline">GitHub</span>
               </a>
             </div>
           </div>
@@ -114,8 +135,8 @@ export default function Home() {
             },
             {
               icon: Waves,
-              title: 'Varsity Athlete Aug 2024 - Dec 2025',
-              desc: 'Tec de Monterrey campus Queretaro competitive swimming team',
+              title: 'Varsity Athlete · Aug 2024 – Dec 2025',
+              desc: 'Competitive swimming team — Tec de Monterrey, Querétaro Campus',
             },
             {
               icon: Globe,
@@ -152,9 +173,8 @@ export default function Home() {
         </h2>
         <div className="grid sm:grid-cols-3 gap-6">
           {[
-            { icon: Bot, label: 'Robotics & Autonomous Vehicles', detail: 'ROS 2,  LiDAR sensors, C/C++, Python, Position sensoring' },
-            { icon: Satellite, label: 'Aerospace Technology', detail: 'Satelites & RoversTarea 15 - Equipment Servicing: reglas, flujo y separación de responsabilidades
-, ADCS, experimental rocketry' },
+            { icon: Bot, label: 'Robotics & Autonomous Vehicles', detail: 'ROS 2, LiDAR sensors, C/C++, Python, Position sensoring' },
+            { icon: Satellite, label: 'Aerospace Technology', detail: 'Satellites & rovers, ADCS, experimental rocketry' },
             { icon: Cpu, label: 'Embedded Systems', detail: 'PCB design, sensor implementation via microcontrollers, telemetry' },
           ].map((item, i) => {
             const Icon = item.icon;
