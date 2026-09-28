@@ -1,5 +1,6 @@
 import { Download, GraduationCap, Waves, Globe, ChevronRight, Rocket, Bot, Satellite, Cpu, Mail, Linkedin, Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { media } from '../data/media';
 
 // Set to '/cv_david_vite.pdf' once that file exists in public/ — the button stays hidden until then.
 const CV_URL = null;
@@ -102,22 +103,25 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Visual element */}
+          {/* Profile photo */}
           <div className="md:col-span-2 flex justify-center fade-in-up stagger-5">
-            <div className="relative">
-              {/* Orbiting rings */}
-              <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-full border border-violet-200 flex items-center justify-center animate-[spin_30s_linear_infinite]">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-violet-500 shadow-md" />
-                <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full border border-stone-200 flex items-center justify-center animate-[spin_20s_linear_infinite_reverse]">
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-violet-300 shadow-md" />
-                  <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full border border-stone-200 flex items-center justify-center animate-[spin_15s_linear_infinite]">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-stone-400 shadow-md" />
-                    {/* Center element */}
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white border border-violet-200 flex items-center justify-center shadow-lg animate-none">
-                      <span className="text-2xl sm:text-3xl font-bold text-gradient">DV</span>
-                    </div>
-                  </div>
-                </div>
+            <div className="relative w-60 sm:w-72">
+              {/* Offset accent frame */}
+              <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-3xl border-2 border-violet-300" />
+              {/* Soft glow */}
+              <div className="absolute -inset-6 rounded-full bg-violet-200/40 blur-3xl -z-10" />
+              <img
+                src={media.profile.src}
+                alt={media.profile.alt}
+                width="800"
+                height="1000"
+                fetchPriority="high"
+                className="relative w-full aspect-[4/5] object-cover object-top rounded-3xl border border-stone-200 shadow-xl bg-stone-200"
+              />
+              {/* Badge */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-violet-200 shadow-md text-xs font-semibold text-violet-700">
+                <span className="w-2 h-2 rounded-full bg-violet-500" />
+                Mechatronics · Tec de Monterrey
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 // Photos/ holds the untouched originals; these are the resized, web-ready copies.
 
 export const media = {
+  profile: { src: '/images/profile/david-portrait.jpg', alt: 'Portrait of David Andre Vite Mijangos' },
   goalkeeper: [
     { src: '/images/goalkeeper/goalkeeper-1-arduino-wiring.jpg', alt: 'Arduino Uno wired to joystick, stepper driver and motor' },
     { src: '/images/goalkeeper/goalkeeper-2-power-solenoid.jpg', alt: 'Power supply, solenoid and control breadboard' },
