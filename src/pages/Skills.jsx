@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image } from 'lucide-react';
+import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image, Video } from 'lucide-react';
 import Lightbox from '../components/Lightbox';
 import { media } from '../data/media';
 
@@ -139,10 +139,40 @@ const categories = [
     name: 'Workshop & Machining',
     icon: Wrench,
     skills: [
-      { name: 'Laser Cutting & 3D Printing', level: 3, appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper'] },
-      { name: 'Waterjet Cutting', level: 2, appliedIn: ['Escudería Electrum'] },
-      { name: 'Manual & CNC Lathe Operation', level: 2, appliedIn: ['Technical Experience & Leadership'] },
-      { name: 'Manual & CNC Milling', level: 2, appliedIn: ['Technical Experience & Leadership'] },
+      {
+        name: 'Laser Cutting & 3D Printing',
+        level: 3,
+        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper', 'Machining Courses — Tec Campus Querétaro'],
+        evidence: [
+          { label: 'Watch Laser Cutting', items: media.machining.cnc.filter((m) => m.src.includes('laser')), icon: Video },
+        ],
+      },
+      {
+        name: 'Waterjet Cutting',
+        level: 2,
+        appliedIn: ['Escudería Electrum', 'Machining Courses — Tec Campus Querétaro'],
+        evidence: [
+          { label: 'Watch Waterjet Cutting', items: media.machining.cnc.filter((m) => m.src.includes('waterjet') || m.src.includes('cut-parts')), icon: Video },
+        ],
+      },
+      {
+        name: 'Manual & CNC Lathe Operation',
+        level: 2,
+        appliedIn: ['Machining Courses — Tec Campus Querétaro', 'Technical Experience & Leadership'],
+        evidence: [
+          { label: 'CNC Lathe', items: media.machining.cnc.filter((m) => m.src.includes('lathe')), icon: Video },
+          { label: 'Manual Lathe', items: media.machining.manual.filter((m) => m.src.includes('lathe')), icon: Video },
+        ],
+      },
+      {
+        name: 'Manual & CNC Milling',
+        level: 2,
+        appliedIn: ['Machining Courses — Tec Campus Querétaro', 'Technical Experience & Leadership'],
+        evidence: [
+          { label: 'CNC Milling', items: media.machining.cnc.filter((m) => m.src.includes('mill') || m.src.includes('machine-run')), icon: Video },
+          { label: 'Manual Milling', items: media.machining.manual.filter((m) => m.src.includes('milling')), icon: Video },
+        ],
+      },
     ],
   },
 ];

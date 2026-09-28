@@ -48,6 +48,27 @@ export const media = {
   ],
   hobbies: [],
   culture: [],
+  machining: {
+    cnc: [
+      { src: '/images/machining/cnc-lathe-team.jpg', alt: 'At the CNC lathe — machining course, Tec Campus Querétaro' },
+      { src: '/images/machining/cnc-milled-aluminum-part.jpg', alt: 'CNC-milled aluminum part' },
+      { src: '/images/machining/cnc-cut-parts-showcase.jpg', alt: 'CNC waterjet / laser cut parts' },
+      { src: '/videos/machining/cnc-lathe-1.mp4', alt: 'CNC lathe — turning cycle', type: 'video' },
+      { src: '/videos/machining/cnc-milling-1.mp4', alt: 'CNC milling — part in vise', type: 'video' },
+      { src: '/videos/machining/cnc-machine-run.mp4', alt: 'CNC machine running a program', type: 'video' },
+      { src: '/videos/machining/cnc-waterjet-cutting.mp4', alt: 'CNC waterjet cutting', type: 'video' },
+      { src: '/videos/machining/cnc-laser-cutting.mp4', alt: 'CNC laser cutting MDF', type: 'video' },
+    ],
+    manual: [
+      { src: '/videos/machining/manual-lathe-2.mp4', alt: 'Manual lathe — turning aluminum stock', type: 'video' },
+      { src: '/videos/machining/manual-lathe-1.mp4', alt: 'Manual lathe — setup with instructor', type: 'video' },
+      { src: '/videos/machining/manual-lathe-3.mp4', alt: 'Manual lathe — facing cut', type: 'video' },
+      { src: '/videos/machining/manual-lathe-4.mp4', alt: 'Manual lathe — instructor demonstration', type: 'video' },
+      { src: '/videos/machining/manual-lathe-5.mp4', alt: 'Manual lathe — carriage feed', type: 'video' },
+      { src: '/videos/machining/manual-lathe-6.mp4', alt: 'Manual lathe — tool post and cut', type: 'video' },
+      { src: '/videos/machining/manual-milling-1.mp4', alt: 'Manual milling machine', type: 'video' },
+    ],
+  },
   certificates: {
     cswaExam: '/certificates/cswa-exam-result.png',
   },
