@@ -11,7 +11,7 @@ const projects = [
     icon: Mountain,
     technologies: ['ROS 2', 'Simulation', 'Firmware / Motor Control', 'Robotic Structure'],
     description:
-      'Founding member of a new campus team building a Mars rover for the University Rover Challenge, an international competition held in Utah. Working across the robotic structure and the software stack, currently in the learning and requirements phase.',
+      'Member of a new campus team building a Mars rover for the University Rover Challenge, an international competition held in Utah. Working across the robotic structure and the software stack, currently in the learning and requirements phase.',
     highlights: [
       'Robotic structure — contributing to the rover\'s mechanical design from the start of the project',
       'Software — first ROS 2 nodes/packages and simulation work for the rover stack',
@@ -20,8 +20,8 @@ const projects = [
     ],
   },
   {
-    id: 'autonomous-precision',
-    title: 'Autonomous Precision — Autonomous Vehicle',
+    id: 'av-challenge',
+    title: 'Autonomous Vehicle Challenge (AV Challenge)',
     subtitle: 'Academic Team Project — Perception, Control & Hardware · Aug 2026 – Present',
     icon: Car,
     technologies: ['STM32', 'ESP32', 'LiDAR', 'MPU6050 IMU', 'Encoders', 'Computer Vision', 'Path Planning', '3D Printing'],

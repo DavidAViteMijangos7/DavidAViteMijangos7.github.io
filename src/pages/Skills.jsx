@@ -17,7 +17,7 @@ const categories = [
       {
         name: 'C++',
         level: 3,
-        appliedIn: ['Arduino-Controlled Robotic Goalkeeper', 'Autonomous Precision', 'URC Mars Rover'],
+        appliedIn: ['Arduino-Controlled Robotic Goalkeeper', 'AV Challenge', 'URC Mars Rover'],
         certifications: [
           {
             name: 'C for Everyone: Programming Fundamentals (UC Santa Cruz / Coursera)',
@@ -103,7 +103,7 @@ const categories = [
       {
         name: '3D Printing',
         level: 2,
-        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper', 'Autonomous Precision'],
+        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper', 'AV Challenge'],
         evidence: [
           { label: 'View Physical Prototypes & Hardware', items: media.printing3d, icon: Image },
         ],
@@ -146,7 +146,7 @@ const categories = [
     skills: [
       { name: 'Linux / Ubuntu', level: 1, appliedIn: ['URC Mars Rover'] },
       { name: 'Git & GitHub', level: 2, appliedIn: ['Personal Portfolio Website', 'Formula SAE'] },
-      { name: 'VS Code', level: 2, appliedIn: ['Personal Portfolio Website', 'CubeSat Project', 'URC Mars Rover', 'Autonomous Precision'] },
+      { name: 'VS Code', level: 2, appliedIn: ['Personal Portfolio Website', 'CubeSat Project', 'URC Mars Rover', 'AV Challenge'] },
       { name: 'OpenRocket', level: 2, appliedIn: ['Experimental Rocketry Courses'] },
       {
         name: 'Advanced Excel',
