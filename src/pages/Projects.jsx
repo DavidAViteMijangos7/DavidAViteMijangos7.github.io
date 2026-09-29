@@ -6,8 +6,9 @@ import { media } from '../data/media';
 const projects = [
   {
     id: 'urc-rover',
+    period: 'Aug 2026 – Present',
     title: 'Mars Rover — University Rover Challenge (URC)',
-    subtitle: 'Tec de Monterrey Rover Team — Robotic Structure & Software · Aug 2026 – Present',
+    subtitle: 'Tec de Monterrey Rover Team — Robotic Structure & Software',
     icon: Mountain,
     technologies: ['ROS 2', 'Simulation', 'Firmware / Motor Control', 'Robotic Structure'],
     description:
@@ -21,8 +22,9 @@ const projects = [
   },
   {
     id: 'av-challenge',
+    period: 'Aug 2026 – Present',
     title: 'Autonomous Vehicle Challenge (AV Challenge)',
-    subtitle: 'Academic Team Project — Perception, Control & Hardware · Aug 2026 – Present',
+    subtitle: 'Academic Team Project — Perception, Control & Hardware',
     icon: Car,
     technologies: ['STM32', 'ESP32', 'LiDAR', 'MPU6050 IMU', 'Encoders', 'Computer Vision', 'Path Planning', '3D Printing'],
     description:
@@ -35,20 +37,8 @@ const projects = [
     ],
   },
   {
-    id: 'ros2-embedded',
-    title: 'ROS 2, STM32 & Arduino for Embedded Systems',
-    subtitle: 'Basic / Intermediate training & extra classes Middleware',
-    icon: Bot,
-    technologies: ['ROS 2 Humble', 'Python', 'C++', 'Arduino / STM32'],
-    description:
-      'Basic ROS 2 training to interface embedded microcontrollers with a Linux host for diverse projects and student groups.',
-    highlights: [
-      'Trained in custom ROS 2 packages nodes in Python and C++',
-      'Configured software with ROS 2, Arduino/STM32 for system integration on projects & student group projects',
-    ],
-  },
-  {
     id: 'cubesat',
+    period: 'Feb 2026 – Present',
     title: 'CubeSat Project',
     subtitle: 'Tec de Monterrey & Kyutech University — ADCS & Structural Engineering',
     icon: Satellite,
@@ -63,7 +53,22 @@ const projects = [
     ],
   },
   {
+    id: 'ros2-embedded',
+    period: 'Feb 2026 – Present',
+    title: 'ROS 2, STM32 & Arduino for Embedded Systems',
+    subtitle: 'Basic / Intermediate training & extra classes Middleware',
+    icon: Bot,
+    technologies: ['ROS 2 Humble', 'Python', 'C++', 'Arduino / STM32'],
+    description:
+      'Basic ROS 2 training to interface embedded microcontrollers with a Linux host for diverse projects and student groups.',
+    highlights: [
+      'Trained in custom ROS 2 packages nodes in Python and C++',
+      'Configured software with ROS 2, Arduino/STM32 for system integration on projects & student group projects',
+    ],
+  },
+  {
     id: 'exoskeleton',
+    period: 'Feb 2026 – May 2026',
     title: 'Passive Industrial Exoskeleton Prototype',
     subtitle: 'Mechanical CAD & Simulation Lead',
     icon: Shield,
@@ -79,6 +84,7 @@ const projects = [
   },
   {
     id: 'robotic-goalkeeper',
+    period: 'Feb 2026 – Jun 2026',
     title: 'Arduino-Controlled Robotic Goalkeeper',
     subtitle: 'Mechatronics Integration Engineer — Academic Team Project',
     icon: Gamepad2,
@@ -131,6 +137,11 @@ export default function Projects() {
                     <Icon size={24} />
                   </div>
                   <div>
+                    {project.period && (
+                      <span className="inline-block mb-1.5 text-xs font-mono font-medium text-stone-500 bg-stone-100 px-2.5 py-0.5 rounded-full">
+                        {project.period}
+                      </span>
+                    )}
                     <h3 className="text-lg font-bold text-gray-900">{project.title}</h3>
                     <p className="text-xs text-stone-500 font-medium">{project.subtitle}</p>
                   </div>
