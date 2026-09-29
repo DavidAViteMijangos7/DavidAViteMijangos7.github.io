@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { CircuitBoard, Zap, Wrench, Rocket, Dumbbell, Microscope, ChevronDown, Activity, Music, Globe, ChevronRight } from 'lucide-react';
 import MediaGallery from '../components/MediaGallery';
 import { media } from '../data/media';
@@ -126,6 +127,12 @@ const beyond = [
 
 
 export default function Experience() {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }, [hash]);
   const [beyondOpen, setBeyondOpen] = useState(false);
 
   return (
@@ -151,7 +158,7 @@ export default function Experience() {
           {experiences.map((exp, i) => {
             const Icon = exp.icon;
             return (
-              <div key={exp.id} className={`relative pl-16 md:pl-20 fade-in-up stagger-${Math.min(i + 1, 6)}`}>
+              <div key={exp.id} id={exp.id} className={`scroll-mt-24 relative pl-16 md:pl-20 fade-in-up stagger-${Math.min(i + 1, 6)}`}>
                 {/* Timeline dot */}
                 <div className="absolute left-4 md:left-6 top-6 w-4 h-4 rounded-full bg-violet-500 border-4 border-stone-50 shadow-md z-10" />
 

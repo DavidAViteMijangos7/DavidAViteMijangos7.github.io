@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown, ChevronUp, Bot, Satellite, Shield, Gamepad2, Car, Mountain } from 'lucide-react';
 import MediaGallery from '../components/MediaGallery';
 import { media } from '../data/media';
@@ -104,6 +105,17 @@ const projects = [
 export default function Projects() {
   const [expanded, setExpanded] = useState(null);
 
+  // Arriving from a Skills "Applied In" link (/projects#id): open that card and scroll to it.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (!hash) return;
+    const id = decodeURIComponent(hash.slice(1));
+    const el = document.getElementById(id);
+    if (!el) return;
+    setExpanded(id);
+    setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }, [hash]);
+
   const toggle = (id) => setExpanded(expanded === id ? null : id);
 
   return (
@@ -115,8 +127,9 @@ export default function Projects() {
           <span className="text-gradient">Projects</span>
         </h1>
         <p className="text-stone-500 text-lg max-w-2xl">
-          From autonomous robots to satellites, materials research, and exoskeletons — a selection of projects where I apply
-          mechatronics engineering to solve real-world problems.
+          Rovers, satellites, autonomous vehicles and prototypes — mechanical design, embedded systems and control,
+          built end to end. Each card shows my role, the tools I used, and the CAD, photos and videos that back it up,
+          from finished prototypes to the projects I'm building right now.
         </p>
       </div>
 
@@ -128,7 +141,8 @@ export default function Projects() {
           return (
             <div
               key={project.id}
-              className={`rounded-xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:shadow-md fade-in-up stagger-${i + 1}`}
+              id={project.id}
+              className={`scroll-mt-24 rounded-xl bg-white border border-stone-200 shadow-sm transition-all duration-300 hover:shadow-md fade-in-up stagger-${i + 1}`}
             >
               {/* Card header */}
               <div className="p-6 pb-4">

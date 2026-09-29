@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image, Video, Sparkles } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronDown, ChevronRight, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image, Video, Sparkles, X, ExternalLink } from 'lucide-react';
 import Lightbox from '../components/Lightbox';
 import { media } from '../data/media';
+import { contexts, applications } from '../data/applications';
 
 const categories = [
   {
@@ -70,9 +72,9 @@ const categories = [
     icon: Cog,
     skills: [
       {
-        name: 'SolidWorks CSWA',
+        name: 'SolidWorks',
         level: 3,
-        appliedIn: ['Passive Industrial Exoskeleton Prototype'],
+        appliedIn: ['Passive Industrial Exoskeleton Prototype', 'AV Challenge'],
         evidence: [
           { label: 'View FEA Stress Maps', items: media.exoskeleton.filter((m) => m.src.includes('-fea-')), icon: Image },
         ],
@@ -82,7 +84,6 @@ const categories = [
             note: 'Exam score 240/240 · (CSWP Certification in progress)',
             images: [
               { src: '/certificates/cswa.jpg', alt: 'CSWA - SOLIDWORKS Design Associate certificate' },
-              { src: media.certificates.cswaExam, alt: 'CSWA exam result — 240/240' },
             ],
           },
         ],
@@ -210,6 +211,14 @@ export default function Skills() {
   const [openCategory, setOpenCategory] = useState(null);
   const [openSkill, setOpenSkill] = useState(null);
   const [viewer, setViewer] = useState(null); // { items, index } — shared by certs + evidence
+  const [applied, setApplied] = useState(null); // { skill, name } — open "Applied In" summary
+
+  useEffect(() => {
+    if (!applied) return;
+    const onKey = (e) => e.key === 'Escape' && setApplied(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [applied]);
 
   const toggleCategory = (id) => {
     setOpenCategory(openCategory === id ? null : id);
@@ -346,14 +355,28 @@ export default function Skills() {
                                 <div className="space-y-2">
                                   <span className="text-xs font-medium text-stone-500 block">Applied In:</span>
                                   <div className="flex flex-wrap gap-1.5">
-                                    {skill.appliedIn.map((proj) => (
-                                      <span
-                                        key={proj}
-                                        className="px-2 py-0.5 rounded-md text-[10px] font-medium border bg-violet-100 text-violet-800 border-violet-200 hover:bg-violet-200 transition-colors"
-                                      >
-                                        {proj}
-                                      </span>
-                                    ))}
+                                    {skill.appliedIn.map((proj) =>
+                                      contexts[proj] ? (
+                                        <button
+                                          key={proj}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            setApplied({ skill: skill.name, name: proj });
+                                          }}
+                                          className="group/chip inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium border bg-violet-100 text-violet-800 border-violet-200 hover:bg-violet-200 hover:border-violet-300 transition-colors text-left"
+                                        >
+                                          {proj}
+                                          <ChevronRight size={13} className="flex-shrink-0 group-hover/chip:translate-x-0.5 transition-transform" />
+                                        </button>
+                                      ) : (
+                                        <span
+                                          key={proj}
+                                          className="px-3 py-1.5 rounded-lg text-xs font-medium border bg-violet-100 text-violet-800 border-violet-200"
+                                        >
+                                          {proj}
+                                        </span>
+                                      ),
+                                    )}
                                   </div>
                                 </div>
                               )}
@@ -372,9 +395,9 @@ export default function Skills() {
                                             e.stopPropagation();
                                             setViewer({ items: ev.items, index: 0 });
                                           }}
-                                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium border border-violet-200 text-violet-700 hover:bg-violet-50 transition-colors duration-200"
+                                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-violet-200 text-violet-700 hover:bg-violet-50 transition-colors duration-200"
                                         >
-                                          <EvidenceIcon size={11} />
+                                          <EvidenceIcon size={13} />
                                           {ev.label}
                                         </button>
                                       );
@@ -454,6 +477,85 @@ export default function Skills() {
           </div>
         </div>
       </div>
+
+      {/* "Applied In" summary modal */}
+      {applied && (() => {
+        const ctx = contexts[applied.name];
+        const points = applications[applied.skill]?.[applied.name];
+        return (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            onClick={() => setApplied(null)}
+          >
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${applied.skill} in ${ctx.title}`}
+              className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl p-6 sm:p-7"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setApplied(null)}
+                aria-label="Close"
+                className="absolute top-3 right-3 p-1.5 rounded-full bg-stone-100 border border-stone-200 text-stone-500 hover:text-violet-700 hover:border-violet-300 hover:bg-violet-50 transition-all duration-200"
+              >
+                <X size={18} />
+              </button>
+
+              <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 text-violet-800 border border-violet-200">
+                {applied.skill}
+              </span>
+              <h3 className="text-xl font-bold text-gray-900 pr-8">{ctx.title}</h3>
+              {ctx.period && (
+                <p className="mt-1 text-xs font-mono text-stone-500">{ctx.period}</p>
+              )}
+
+              <div className="mt-5 border-t border-stone-100 pt-4">
+                <h4 className="text-xs uppercase tracking-wider text-stone-400 font-semibold mb-3">
+                  {points ? 'How I applied it' : 'About this project'}
+                </h4>
+                {points ? (
+                  <ul className="space-y-2.5">
+                    {points.map((pt, k) => (
+                      <li key={k} className="flex items-start gap-2 text-sm text-stone-600 leading-relaxed">
+                        <span className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-2 flex-shrink-0" />
+                        {pt}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-stone-600 leading-relaxed">{ctx.summary}</p>
+                )}
+              </div>
+
+              {(ctx.to || ctx.href) && (
+                <div className="mt-6">
+                  {ctx.to ? (
+                    <Link
+                      to={ctx.to}
+                      onClick={() => setApplied(null)}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-violet-600 text-white text-sm font-semibold shadow-md hover:bg-violet-700 transition-colors"
+                    >
+                      View full {ctx.type === 'experience' ? 'experience' : 'project'}
+                      <ChevronRight size={16} />
+                    </Link>
+                  ) : (
+                    <a
+                      href={ctx.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-violet-600 text-white text-sm font-semibold shadow-md hover:bg-violet-700 transition-colors"
+                    >
+                      View on GitHub
+                      <ExternalLink size={15} />
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })()}
 
       <Lightbox
         items={viewer?.items ?? []}
