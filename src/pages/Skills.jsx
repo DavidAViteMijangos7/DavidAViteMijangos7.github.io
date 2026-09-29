@@ -16,7 +16,7 @@ const categories = [
       },
       {
         name: 'C++',
-        level: 3,
+        level: 2,
         appliedIn: ['Arduino-Controlled Robotic Goalkeeper', 'AV Challenge', 'URC Mars Rover'],
         certifications: [
           {
@@ -149,7 +149,7 @@ const categories = [
       { name: 'VS Code', level: 2, appliedIn: ['Personal Portfolio Website', 'CubeSat Project', 'URC Mars Rover', 'AV Challenge'] },
       { name: 'OpenRocket', level: 2, appliedIn: ['Experimental Rocketry Courses'] },
       {
-        name: 'Advanced Excel',
+        name: 'Excel',
         level: 3,
         certifications: [
           {
@@ -168,7 +168,7 @@ const categories = [
       {
         name: 'Laser Cutting & 3D Printing',
         level: 3,
-        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper', 'Machining Courses — Tec Campus Querétaro'],
+        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper', 'Personal Interests', 'Machining Courses — Tec Campus Querétaro'],
         evidence: [
           { label: 'Watch Laser Cutting', items: media.machining.cnc.filter((m) => m.src.includes('laser')), icon: Video },
         ],

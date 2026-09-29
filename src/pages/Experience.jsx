@@ -54,7 +54,7 @@ const experiences = [
   },
   {
     id: 'rocketry',
-    period: '2024',
+    period: '2025',
     title: 'Experimental Rocketry Courses',
     subtitle: 'AeroClúster de Querétaro',
     icon: Rocket,
@@ -91,7 +91,7 @@ const experiences = [
     subtitle: 'Blacksmith, Automator & Coach',
     icon: Wrench,
     description:
-      'A diverse background combining hands-on technical skills in blacksmithing and automation applied to family businesses, with leadership and communication experience as a swimming coach and former member of Tec de Monterrey\'s competitive swim team.',
+      'A diverse background combining hands-on technical skills in blacksmithing and automation applied to the family businesses, with leadership and communication experience as a swimming coach and former member of Tec de Monterrey\'s campus Qro competitive swim team.',
     tags: ['Blacksmithing', 'Automation', 'Leadership', 'Communication', 'Swimming'],
     highlights: [
       'Process automation in family businesses',
