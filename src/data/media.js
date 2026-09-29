@@ -48,6 +48,10 @@ export const media = {
   ],
   hobbies: [],
   culture: [],
+  cubesat: [
+    { src: '/images/cubesat/cubesat-assembly.png', alt: 'CubeSat structure — full CAD assembly (Fusion 360)' },
+    { src: '/images/cubesat/cubesat-frame.png', alt: 'CubeSat structure — side frame panel (Fusion 360)' },
+  ],
   machining: {
     cnc: [
       { src: '/images/machining/cnc-lathe-team.jpg', alt: 'At the CNC lathe — machining course, Tec Campus Querétaro' },

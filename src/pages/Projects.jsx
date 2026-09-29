@@ -1,9 +1,39 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, Bot, Satellite, Shield, Gamepad2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Bot, Satellite, Shield, Gamepad2, Car, Mountain } from 'lucide-react';
 import MediaGallery from '../components/MediaGallery';
 import { media } from '../data/media';
 
 const projects = [
+  {
+    id: 'urc-rover',
+    title: 'Mars Rover — University Rover Challenge (URC)',
+    subtitle: 'Tec de Monterrey Rover Team — Robotic Structure & Software · Aug 2026 – Present',
+    icon: Mountain,
+    technologies: ['ROS 2', 'Simulation', 'Firmware / Motor Control', 'Robotic Structure'],
+    description:
+      'Founding member of a new campus team building a Mars rover for the University Rover Challenge, an international competition held in Utah. Working across the robotic structure and the software stack, currently in the learning and requirements phase.',
+    highlights: [
+      'Robotic structure — contributing to the rover\'s mechanical design from the start of the project',
+      'Software — first ROS 2 nodes/packages and simulation work for the rover stack',
+      'Firmware — microcontroller code for motor control',
+      'Studying the URC rules and mission objectives to shape the team\'s first tasks',
+    ],
+  },
+  {
+    id: 'autonomous-precision',
+    title: 'Autonomous Precision — Autonomous Vehicle',
+    subtitle: 'Academic Team Project — Perception, Control & Hardware · Aug 2026 – Present',
+    icon: Car,
+    technologies: ['STM32', 'ESP32', 'LiDAR', 'MPU6050 IMU', 'Encoders', 'Computer Vision', 'Path Planning', '3D Printing'],
+    description:
+      'Small-scale autonomous car built for a class project. Selected the sensors, 3D-printed the chassis, and am developing the perception, control and navigation code, with an STM32 running the main software and an ESP32 handling telemetry.',
+    highlights: [
+      'Sensor selection and integration — LiDAR, MPU6050 IMU, and motors with encoders',
+      'Chassis designed and 3D-printed on my own printer',
+      'STM32 runs the main code; ESP32 streams telemetry',
+      'Computer vision, motion control, and path planning / navigation',
+    ],
+  },
   {
     id: 'ros2-embedded',
     title: 'ROS 2, STM32 & Arduino for Embedded Systems',
@@ -23,6 +53,7 @@ const projects = [
     subtitle: 'Tec de Monterrey & Kyutech University — ADCS & Structural Engineering',
     icon: Satellite,
     technologies: ['Kalman Filters', 'Magnetorquer Simulation', 'Fusion 360', 'MATLAB', 'Research'],
+    media: media.cubesat,
     description:
       'International collaboration for a low Earth orbit mission. Researched Kalman filter variants for ADCS, developed magnetorquer simulations, assembled the ADCS components & code structure, and led the structural CAD assembly team.',
     highlights: [

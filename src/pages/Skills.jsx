@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image, Video } from 'lucide-react';
+import { ChevronDown, Code2, Cpu, FlaskConical, Cog, Terminal, Wrench, Award, Image, Video, Sparkles } from 'lucide-react';
 import Lightbox from '../components/Lightbox';
 import { media } from '../data/media';
 
@@ -12,12 +12,12 @@ const categories = [
       {
         name: 'Python',
         level: 2,
-        appliedIn: ['Neuron AV', 'Materials Science Research — Next Gen Scientist Program'],
+        appliedIn: ['Materials Science Research — Next Gen Scientist Program'],
       },
       {
         name: 'C++',
         level: 3,
-        appliedIn: ['Arduino-Controlled Robotic Goalkeeper', 'Autonomous Precision'],
+        appliedIn: ['Arduino-Controlled Robotic Goalkeeper', 'Autonomous Precision', 'URC Mars Rover'],
         certifications: [
           {
             name: 'C for Everyone: Programming Fundamentals (UC Santa Cruz / Coursera)',
@@ -28,7 +28,7 @@ const categories = [
       {
         name: 'ROS 2',
         level: 1,
-        appliedIn: ['Neuron AV'],
+        appliedIn: ['URC Mars Rover', 'Personal Interests'],
       },
       {
         name: 'R / Data Science',
@@ -50,18 +50,18 @@ const categories = [
       {
         name: 'MATLAB',
         level: 2,
-        appliedIn: ['CubeSat Project'],
+        appliedIn: ['CubeSat Project', 'Classes'],
         certifications: [
           {
             name: 'MATLAB Programming Series: Functions, Constructs & Data (MathWorks)',
           },
         ],
       },
-      { name: 'Kalman Filters', level: 2, appliedIn: ['CubeSat Project'] },
-      { name: 'Stress Simulation / FEA (SolidWorks)', level: 3, appliedIn: ['Passive Industrial Exoskeleton Prototype'] },
+      { name: 'Stress Simulation / FEA (SolidWorks)', level: 3, appliedIn: ['Passive Industrial Exoskeleton Prototype', 'CubeSat Project'] },
       { name: 'Microcontrollers & Actuators (Arduino, Solenoids, Motor Drivers)', level: 3, appliedIn: ['Arduino-Controlled Robotic Goalkeeper'] },
       { name: 'Magnetorquer Simulation', level: 2, appliedIn: ['CubeSat Project'] },
       { name: 'Mechanical Testing (Tensile & Fatigue)', level: 3, appliedIn: ['Materials Science Research — Next Gen Scientist Program'] },
+      { name: 'Kalman Filters', level: 2, appliedIn: ['CubeSat Project'] }
     ],
   },
   {
@@ -90,7 +90,10 @@ const categories = [
       {
         name: 'Fusion 360',
         level: 3,
-        appliedIn: ['CubeSat Project'],
+        appliedIn: ['CubeSat Project', 'Rover Project'],
+        evidence: [
+          { label: 'View CubeSat CAD', items: media.cubesat, icon: Image },
+        ],
       },
       {
         name: 'KiCad',
@@ -100,7 +103,7 @@ const categories = [
       {
         name: '3D Printing',
         level: 2,
-        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper'],
+        appliedIn: ['Experimental Rocketry Courses', 'Arduino-Controlled Robotic Goalkeeper', 'Autonomous Precision'],
         evidence: [
           { label: 'View Physical Prototypes & Hardware', items: media.printing3d, icon: Image },
         ],
@@ -115,13 +118,36 @@ const categories = [
     ],
   },
   {
+    id: 'ai',
+    name: 'AI & Automation',
+    icon: Sparkles,
+    skills: [
+      {
+        name: 'Claude & Claude Code (AI-Assisted Development)',
+        level: 2,
+        appliedIn: ['Personal Portfolio Website', 'CubeSat Project'],
+      },
+      {
+        name: 'Prompt Engineering',
+        level: 2,
+        appliedIn: ['Personal Portfolio Website'],
+      },
+      {
+        name: 'Building Claude Skills & Agent Workflows',
+        level: 2,
+        appliedIn: ['Personal Portfolio Website'],
+      },
+    ],
+  },
+  {
     id: 'tools',
     name: 'Tools & OS',
     icon: Terminal,
     skills: [
-      { name: 'Linux / Ubuntu', level: 3, appliedIn: ['Neuron AV'] },
-      { name: 'Git & GitHub', level: 2, appliedIn: ['Neuron AV', 'Formula SAE'] },
-      { name: 'OpenRocket', level: 3, appliedIn: ['Experimental Rocketry Courses'] },
+      { name: 'Linux / Ubuntu', level: 1, appliedIn: ['URC Mars Rover'] },
+      { name: 'Git & GitHub', level: 2, appliedIn: ['Personal Portfolio Website', 'Formula SAE'] },
+      { name: 'VS Code', level: 2, appliedIn: ['Personal Portfolio Website', 'CubeSat Project', 'URC Mars Rover', 'Autonomous Precision'] },
+      { name: 'OpenRocket', level: 2, appliedIn: ['Experimental Rocketry Courses'] },
       {
         name: 'Advanced Excel',
         level: 3,
@@ -149,7 +175,7 @@ const categories = [
       },
       {
         name: 'Waterjet Cutting',
-        level: 2,
+        level: 1,
         appliedIn: ['Escudería Electrum', 'Machining Courses — Tec Campus Querétaro'],
         evidence: [
           { label: 'Watch Waterjet Cutting', items: media.machining.cnc.filter((m) => m.src.includes('waterjet') || m.src.includes('cut-parts')), icon: Video },
@@ -421,7 +447,7 @@ export default function Skills() {
           <div>
             <h3 className="text-sm font-semibold text-gray-900 mb-1">How to read this matrix?</h3>
             <p className="text-sm text-stone-500 leading-relaxed">
-              Skills are grouped into five domains. Click on any category to expand it,
+              Skills are grouped into six domains. Click on any category to expand it,
               then click on individual skill cards to see proficiency levels, applied projects,
               evidence (photos and renders), and verified credentials.
             </p>
